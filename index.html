@@ -66,11 +66,11 @@
         .historial { background: rgba(0,0,0,0.2); margin: 10px; padding: 12px; border-radius: 10px; font-size: 14px; cursor: pointer; transition: 0.2s; }
         .historial:active { background: rgba(0,0,0,0.35); }
 
-        .panel-fijo { position: fixed; bottom: 0; left: 0; right: 0; background: #2D3436; padding: 12px 12px calc(12px + env(safe-area-inset-bottom, 0px)) 12px; border-top: 3px solid var(--tarjeta); z-index: 200; }
+        .panel-fijo { position: fixed; bottom: 0; left: 0; right: 0; background: #2D3436; padding: 12px calc(12px + env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) calc(12px + env(safe-area-inset-left, 0px)); border-top: 3px solid var(--tarjeta); z-index: 200; }
         .fila-ajuste { display: flex; justify-content: space-around; align-items: center; max-width: 1200px; margin: 0 auto; }
         .btn-a { width: 50px; height: 50px; border-radius: 25px; border: none; color: white; font-weight: bold; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-        .btn-escaner-flotante { position: fixed; bottom: calc(85px + env(safe-area-inset-bottom, 0px)); right: 18px; z-index: 250; background: #d35400; color: white; width: 58px; height: 58px; border-radius: 29px; border: 2px solid #f39c12; box-shadow: 0 4px 15px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; transition: 0.2s; }
+        .btn-escaner-flotante { position: fixed; bottom: calc(85px + env(safe-area-inset-bottom, 0px)); right: calc(18px + env(safe-area-inset-right, 0px)); z-index: 250; background: #d35400; color: white; width: 58px; height: 58px; border-radius: 29px; border: 2px solid #f39c12; box-shadow: 0 4px 15px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; transition: 0.2s; }
         .btn-escaner-flotante:active { transform: scale(0.92); }
 
         .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 300; align-items: center; justify-content: center; padding: 15px; }
@@ -132,7 +132,34 @@
 
         .f { color: #D35400; } .c { color: #A93226; } .l { color: #2E86C1; } .h { color: #512E5F; } .d { color: #795548; }
 
-        .brand-stamp { position: absolute; bottom: 5px; right: 8px; font-size: 9px; opacity: 0.35; color: var(--texto); pointer-events: none; user-select: none; display: flex; align-items: center; gap: 4px; z-index: 10; }
+        .brand-stamp { position: absolute; bottom: 5px; right: calc(8px + env(safe-area-inset-right, 0px)); font-size: 9px; opacity: 0.35; color: var(--texto); pointer-events: none; user-select: none; display: flex; align-items: center; gap: 4px; z-index: 10; }
+
+        /* Adaptación fluida en modo horizontal (móviles tumbados y tablets) */
+        @media (orientation: landscape) {
+            body { padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); padding-bottom: calc(140px + env(safe-area-inset-bottom, 0px)); }
+            .pantalla { grid-template-columns: repeat(4, 1fr) !important; gap: 10px; }
+            .titulo-zona-seccion { grid-column: span 4 !important; }
+            .modal-contenido { max-width: 540px; max-height: 88vh; }
+        }
+
+        @media (orientation: landscape) and (max-height: 540px) {
+            .header { padding: 6px 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+            .controles-extra { margin-bottom: 0; flex: 0 0 auto; gap: 6px; }
+            .btn-mini { padding: 5px 9px; font-size: 12px; }
+            .buscador-caja { margin-bottom: 0; flex: 1 1 180px; min-width: 150px; }
+            .buscador-input { padding: 6px 10px; font-size: 14px; }
+            .total-info { flex: 0 0 auto; gap: 10px; }
+            .total-info h1 { font-size: 14px !important; }
+            #total { font-size: 20px; }
+            .contenedor-semaforo { margin: 2px 0; height: 6px; flex-basis: 100%; }
+            .tabs { flex-basis: 100%; padding: 0; margin-bottom: 0; }
+            .tab { padding: 6px; font-size: 12px; }
+            .boton { padding: 8px; border-radius: 12px; }
+            .boton i { font-size: 20px; margin-bottom: 4px; }
+            .panel-fijo { padding: 6px calc(12px + env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) calc(12px + env(safe-area-inset-left, 0px)); }
+            .btn-a { width: 42px; height: 42px; font-size: 12px; }
+            .btn-escaner-flotante { bottom: calc(62px + env(safe-area-inset-bottom, 0px)); width: 48px; height: 48px; font-size: 20px; }
+        }
 
         @media (min-width: 768px) {
             .header, .historial, .pantalla { max-width: 1000px; margin-left: auto; margin-right: auto; }
